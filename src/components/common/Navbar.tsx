@@ -92,7 +92,7 @@ export default function Navbar() {
                               <li key={item}>
                                 <Link
                                   href="#"
-                                  className="block rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-gray-100 hover:text-blue-600"
+                                  className="block rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-gray-100 hover:text-primary"
                                 >
                                   {item}
                                 </Link>
@@ -107,7 +107,7 @@ export default function Navbar() {
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="block rounded-lg px-2 py-3 text-[15px] font-semibold text-zinc-900 transition-colors hover:bg-gray-100 hover:text-blue-600"
+                      className="block rounded-lg px-2 py-3 text-[15px] font-semibold text-zinc-900 transition-colors hover:bg-gray-100 hover:text-primary"
                     >
                       {link.label}
                     </Link>
@@ -125,7 +125,7 @@ export default function Navbar() {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
-                      className="flex items-center gap-1 font-semibold text-zinc-900 hover:text-blue-600 px-2"
+                      className="flex items-center gap-1 font-semibold text-zinc-900 hover:text-primary px-2"
                     >
                       {link.label}
                       <ChevronDown className="h-4 w-4" />
@@ -136,7 +136,7 @@ export default function Navbar() {
                       <DropdownMenuItem key={item} asChild>
                         <Link
                           href="#"
-                          className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-700 cursor-pointer hover:text-blue-600"
+                          className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-700 cursor-pointer hover:text-primary"
                         >
                           {item}
                         </Link>
@@ -148,7 +148,7 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="font-semibold text-zinc-950 transition-colors hover:text-blue-600"
+                  className="font-semibold text-zinc-950 transition-colors hover:text-primary"
                 >
                   {link.label}
                 </Link>
@@ -170,10 +170,10 @@ export default function Navbar() {
 
         {/* ── RIGHT – icons ── */}
         <div className="flex flex-1 items-center justify-end gap-4">
-          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-blue-600">
+          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-primary">
             <Search className="h-5 w-5" />
           </Button>
-          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-blue-600">
+          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-primary">
             <User className="h-5 w-5" />
           </Button>
           <button className="relative flex items-center justify-center rounded-full bg-orange-400 p-2 text-white transition-colors hover:bg-orange-500">

@@ -55,7 +55,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: #4A69E2;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -134,7 +134,7 @@
      <p className="text-xs-fluid">   12px mobile → 16px desktop  </p>
      <p className="text-sm-fluid">   16px mobile → 24px desktop  </p>
      <p className="text-md-fluid">   24px mobile → 32px desktop  </p>
-     <p className="text-hero-fluid"> 32px mobile → 74px desktop  </p>
+     <p className="text-xl-fluid"> 32px mobile → 74px desktop  </p>
 ───────────────────────────────────────────────────────────────────────────── */
 
 @utility text-xs-fluid {
@@ -152,7 +152,7 @@
   font-size: clamp(1.5rem, calc(1.301rem + 0.846vw), 2rem);
 }
 
-@utility text-hero-fluid {
+@utility text-xl-fluid {
   /* 32px (mobile 375px) → 74px (desktop 1320px) */
   font-size: clamp(2rem, calc(0.958rem + 4.444vw), 4.625rem);
 }

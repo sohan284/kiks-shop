@@ -68,3 +68,25 @@ export function CategoryCard({ title, image, index, isActive }: CategoryCardProp
     </div>
   );
 }
+
+export function CategorySkeleton() {
+  return (
+    <div className="group relative aspect-[4/5] w-full rounded-tl-[1.5rem] overflow-hidden bg-[#ECEEF0] animate-pulse sm:aspect-square md:aspect-[4/5]">
+      {/* Category Image Placeholder */}
+      <div className="relative h-full w-full flex items-center justify-center">
+        <div className="h-32 w-32 rounded-full bg-zinc-300" />
+      </div>
+
+      {/* Overlay Info Placeholder */}
+      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6 md:p-8">
+        <div className="flex flex-col gap-2">
+          <div className="h-8 w-32 bg-zinc-300 rounded-md" />
+          <div className="h-8 w-24 bg-zinc-300 rounded-md" />
+        </div>
+        
+        {/* Action Button Placeholder */}
+        <div className="h-10 w-10 rounded-lg bg-zinc-300 md:h-12 md:w-12" />
+      </div>
+    </div>
+  );
+}

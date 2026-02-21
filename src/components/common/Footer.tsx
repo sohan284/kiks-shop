@@ -37,8 +37,8 @@ export function Footer() {
           </div>
 
           <div className="relative">
-             <div className="flex items-center gap-1 text-white">
-                <Image src={logoV2} alt="logo" width={100} height={100} className="w-full h-full object-cover"/>
+             <div className="flex w-[200px] h-[60px] lg:w-[367px] lg:h-[112px] items-center gap-1 text-white relative">
+                <Image src={logoV2} alt="logo" width={360} height={112} className="w-full h-full object-contain"/>
                 <div className="absolute -right-4 -top-2 flex h-4 w-4 pb-[2px] items-center justify-center rounded-full bg-[#FFA52F] font-black text-white">
                    +
                 </div>

@@ -1,9 +1,10 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { CategoryCard } from "./CategoryCard";
+import { CategoryCard, CategorySkeleton } from "./CategoryCard";
 import { useGetCategoriesQuery } from "@/services/categoriesApi";
 import { cn } from "@/lib/utils";
+import { StatusView } from "../common/StatusView";
 
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,7 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 export function CategorySection() {
-  const { data: categories, isLoading, isError } = useGetCategoriesQuery();
+  const { data: categories, isLoading, isError, refetch } = useGetCategoriesQuery();
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
   const [direction, setDirection] = useState<"horizontal" | "vertical">("horizontal");
@@ -32,16 +33,32 @@ export function CategorySection() {
 
   if (isLoading) {
     return (
-      <section className="bg-zinc-900 py-20 text-center text-white">
-        <p className="animate-pulse">Loading Categories...</p>
+      <section className="bg-zinc-900 px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-12 flex items-center justify-between">
+          <div className="h-10 w-48 bg-zinc-700 rounded-lg animate-pulse" />
+          <div className="flex gap-2">
+            <div className="h-10 w-10 bg-zinc-700 rounded-lg animate-pulse" />
+            <div className="h-10 w-10 bg-zinc-700 rounded-lg animate-pulse" />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[...Array(3)].map((_, i) => (
+            <CategorySkeleton key={i} />
+          ))}
+        </div>
       </section>
     );
   }
 
   if (isError || !categories) {
     return (
-      <section className="bg-zinc-900 py-20 text-center text-red-500">
-        <p>Failed to load categories.</p>
+      <section className="bg-zinc-900 px-4 py-16 sm:px-6 lg:px-8">
+        <StatusView 
+          type="error" 
+          onRetry={refetch}
+          className="bg-zinc-800/50 border-zinc-700"
+          message="Failed to load categories. Please check your connection and try again."
+        />
       </section>
     );
   }

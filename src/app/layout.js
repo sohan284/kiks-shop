@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import Navbar from "@/components/common/Navbar";
+import { Footer } from "@/components/common/Footer";
+
 export const metadata = {
   title: "Kiks Shop",
   description: "Kiks Shop — RTK Query powered Next.js store",
@@ -27,7 +30,13 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
       >
         {/* store provider must wrap all pages and components */}
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <div className="min-h-screen max-w-[1320px] mx-auto">
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
+        </StoreProvider>
       </body>
     </html>
   );

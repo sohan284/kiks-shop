@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, User, ShoppingCart, ChevronDown } from "lucide-react";
+import { Search, User, ShoppingCart, ChevronDown, Menu } from "lucide-react";
 import logo from "../../assets/logo.png";
+import { useSelector } from "react-redux";
+import { selectTotalQuantity } from "@/features/cart/cartSlice";
 
 import {
   DropdownMenu,
@@ -26,7 +28,6 @@ import {
 } from "@/components/ui/accordion";
 
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
@@ -44,6 +45,8 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
+  const totalQuantity = useSelector(selectTotalQuantity);
+
   return (
     <div className="mt-6 px-4 sm:px-6 lg:px-8">
       <nav className="flex h-16 items-center rounded-3xl bg-white px-6 shadow-sm">
@@ -92,7 +95,7 @@ export default function Navbar() {
                               <li key={item}>
                                 <Link
                                   href="#"
-                                  className="block rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-gray-100 hover:text-blue-600"
+                                  className="block rounded-lg px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-gray-100 hover:text-primary"
                                 >
                                   {item}
                                 </Link>
@@ -107,7 +110,7 @@ export default function Navbar() {
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="block rounded-lg px-2 py-3 text-[15px] font-semibold text-zinc-900 transition-colors hover:bg-gray-100 hover:text-blue-600"
+                      className="block rounded-lg px-2 py-3 text-[15px] font-semibold text-zinc-900 transition-colors hover:bg-gray-100 hover:text-primary"
                     >
                       {link.label}
                     </Link>
@@ -125,7 +128,7 @@ export default function Navbar() {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
-                      className="flex items-center gap-1 font-semibold text-zinc-900 hover:text-blue-600 px-2"
+                      className="flex items-center gap-1 font-semibold text-zinc-900 hover:text-primary px-2"
                     >
                       {link.label}
                       <ChevronDown className="h-4 w-4" />
@@ -136,7 +139,7 @@ export default function Navbar() {
                       <DropdownMenuItem key={item} asChild>
                         <Link
                           href="#"
-                          className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-700 cursor-pointer hover:text-blue-600"
+                          className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-700 cursor-pointer hover:text-primary"
                         >
                           {item}
                         </Link>
@@ -148,7 +151,7 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="font-semibold text-zinc-950 transition-colors hover:text-blue-600"
+                  className="font-semibold text-zinc-950 transition-colors hover:text-primary"
                 >
                   {link.label}
                 </Link>
@@ -170,18 +173,18 @@ export default function Navbar() {
 
         {/* ── RIGHT – icons ── */}
         <div className="flex flex-1 items-center justify-end gap-4">
-          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-blue-600">
-            <Search className="h-5 w-5" />
+          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-primary">
+            <Search className="h-5 w-5 hidden lg:block" />
           </Button>
-          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-blue-600">
+          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-primary">
             <User className="h-5 w-5" />
           </Button>
-          <button className="relative flex items-center justify-center rounded-full bg-orange-400 p-2 text-white transition-colors hover:bg-orange-500">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-600 text-[10px] font-bold">
-              0
-            </span>
-          </button>
+          <Link 
+            href="/cart"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400 text-xs font-bold text-black transition-colors hover:bg-orange-500 md:text-sm"
+          >
+            {totalQuantity}
+          </Link>
         </div>
       </nav>
     </div>

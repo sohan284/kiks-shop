@@ -4,14 +4,15 @@ import Image from "next/image";
 import hero from '@/assets/hero.png'
 import hero2 from '@/assets/hero2.png'
 import hero3 from '@/assets/hero3.png'
+import { CustomButton } from "../common/CustomButton";
 
 export default function Hero() {
   return (
-    <section className=" px-4 py-12 sm:px-6 lg:px-8">
+    <section className="mt-6 px-4  sm:px-6 lg:px-8">
       {/* big bold typography */}
-      <div className="mb-8 @container flex flex-col items-center text-center font-black leading-[0.85] tracking-tighter uppercase sm:mb-12">
+      <div className="mb-6 lg:mb-12 @container flex flex-col items-center text-center font-black leading-[0.85] tracking-tighter uppercase">
         <h1 className="text-[clamp(2.5rem,16.5cqi,14.5rem)] text-nowrap text-zinc-900">
-          DO IT <span className="text-blue-600">RIGHT</span>
+          DO IT <span className="text-primary">RIGHT</span>
         </h1>
       </div>
 
@@ -37,15 +38,15 @@ export default function Hero() {
 
         {/* brand card (bottom left content) */}
         <div className="absolute bottom-8 left-8 max-w-sm p-4 text-white md:bottom-12 md:left-12">
-          <h2 className="text-hero-fluid font-black uppercase leading-none md:text-6xl">
+          <h2 className="text-xl-fluid font-black uppercase leading-none">
             NIKE AIR MAX
           </h2>
           <p className="mt-4 text-sm font-medium text-white/80 md:text-base">
             Nike introducing the new air max for everyone&apos;s comfort
           </p>
-          <button className="mt-8 rounded-lg bg-blue-600 px-6 py-3 text-sm font-bold uppercase transition-all hover:bg-blue-700 active:scale-95">
+          <CustomButton className="mt-8">
             SHOP NOW
-          </button>
+          </CustomButton>
         </div>
 
         {/* thumbnails (bottom right) */}

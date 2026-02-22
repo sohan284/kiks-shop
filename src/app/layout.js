@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import Navbar from "@/components/common/Navbar";
+import { Footer } from "@/components/common/Footer";
+
 export const metadata = {
   title: "Kiks Shop",
   description: "Kiks Shop — RTK Query powered Next.js store",
@@ -21,12 +24,19 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         {/* store provider must wrap all pages and components */}
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <div className="min-h-screen max-w-[1320px] mx-auto">
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
+        </StoreProvider>
       </body>
     </html>
   );

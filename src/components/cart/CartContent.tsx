@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Trash2, Heart, ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
@@ -17,6 +16,7 @@ import {
 } from "@/features/cart/cartSlice";
 import { getDirectImageUrl } from "@/lib/utils";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
+import { CustomButton } from "../common/CustomButton";
 
 export default function CartContent() {
   const cartItems = useSelector(selectCartItems);
@@ -65,9 +65,9 @@ export default function CartContent() {
               <div className="py-12 text-center">
                 <p className="text-lg font-medium text-zinc-500 mb-6">Your bag is empty.</p>
                 <Link href="/">
-                  <Button className="bg-zinc-900 text-white rounded-xl px-8 h-12 uppercase tracking-widest">
+                  <CustomButton>
                     Go Shopping
-                  </Button>
+                  </CustomButton>
                 </Link>
               </div>
             ) : (
@@ -107,13 +107,13 @@ export default function CartContent() {
                           <div className="flex gap-1">
                             <button
                               onClick={() => dispatch(removeFromCart(item.id))}
-                              className="flex h-6 w-6 items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50"
+                              className="flex h-6 w-6 items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50 cursor-pointer"
                             >
                               <ChevronLeft className="h-3 w-3" />
                             </button>
                             <button
                               onClick={() => dispatch(addToCart(item))}
-                              className="flex h-6 w-6 items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50"
+                              className="flex h-6 w-6 items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50 cursor-pointer"
                             >
                               <ChevronRight className="h-3 w-3" />
                             </button>
@@ -123,12 +123,12 @@ export default function CartContent() {
 
                       {/* Actions */}
                       <div className="mt-auto flex gap-4 pt-6">
-                        <button className="text-zinc-400 hover:text-zinc-900 transition-colors">
+                        <button className="text-zinc-400 hover:text-zinc-900 transition-colors cursor-pointer">
                           <Heart className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => dispatch(deleteFromCart(item.id))}
-                          className="text-zinc-400 hover:text-red-500 transition-colors"
+                          className="text-zinc-400 hover:text-red-500 transition-colors cursor-pointer"
                         >
                           <Trash2 className="h-5 w-5" />
                         </button>

@@ -25,7 +25,7 @@ Kiks Shop is a modern, high-performance sneaker e-commerce frontend built with *
 
 ## 🚀 Live Demo
 
-[Visit Kiks Shop Live](https://kiks-shop.vercel.app/) *(Placeholder URL)*
+[Visit Kiks Shop Live](https://kiks-shop.vercel.app/)
 
 ## 📦 Getting Started
 

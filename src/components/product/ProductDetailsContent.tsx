@@ -4,11 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-// Fallback images are only used if the API provides zero images
-import shoe1 from "@/assets/shoe1.png";
-import detailsShoe1 from "@/assets/details-1.png";
-import detailsShoe2 from "@/assets/details-2.png";
-import detailsShoe3 from "@/assets/details-3.png";
+// Images are now loaded from the API
 import { motion } from "framer-motion";
 import { useGetProductByIdQuery } from "@/services/productsApi";
 import { StatusView } from "@/components/common/StatusView";
@@ -17,8 +13,6 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/features/cart/cartSlice";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { ProductDetailsSkeleton } from "./ProductDetailsSkeleton";
-
-const FALLBACK_IMAGES = [detailsShoe1, detailsShoe2, detailsShoe3, shoe1];
 
 interface ProductDetailsContentProps {
   productId: number;
@@ -47,10 +41,8 @@ export default function ProductDetailsContent({ productId }: ProductDetailsConte
     );
   }
 
-  // Use API images, fallback only if completely empty
-  const finalImages = product.images && product.images.length > 0
-    ? product.images
-    : FALLBACK_IMAGES;
+  // Use API images
+  const finalImages = product?.images || [];
 
   // Colors and sizes are not in the current API, so we keep dummy data for design
   const productMeta = {
@@ -128,7 +120,7 @@ export default function ProductDetailsContent({ productId }: ProductDetailsConte
                   <button
                     key={idx}
                     onClick={() => setActiveIndex(idx)}
-                    className={`relative aspect-square overflow-hidden rounded-lg bg-[#ECEEF0] transition-all ${activeIndex === idx ? "ring-2 ring-primary ring-offset-2 scale-95" : "opacity-70"
+                    className={`relative aspect-square overflow-hidden rounded-lg bg-[#ECEEF0] cursor-pointer transition-all ${activeIndex === idx ? "ring-2 ring-primary ring-offset-2 scale-95" : "opacity-70"
                       }`}
                   >
                     <Image
@@ -205,8 +197,8 @@ export default function ProductDetailsContent({ productId }: ProductDetailsConte
                       key={size}
                       onClick={() => !isOutOfStock && setSelectedSize(size)}
                       className={`flex h-12 items-center justify-center rounded-lg border text-sm font-bold transition-all ${isSelected
-                          ? "bg-zinc-900 text-white border-zinc-900"
-                          : "bg-white text-zinc-900 border-zinc-200 hover:bg-zinc-100"
+                        ? "bg-zinc-900 text-white border-zinc-900"
+                        : "bg-white text-zinc-900 border-zinc-200 hover:bg-zinc-100"
                         } ${isOutOfStock ? "opacity-30 cursor-not-allowed bg-zinc-50" : "cursor-pointer"}`}
                       disabled={isOutOfStock}
                     >
@@ -227,22 +219,22 @@ export default function ProductDetailsContent({ productId }: ProductDetailsConte
                         id: product.id,
                         name: product.title,
                         price: product.price,
-                        image: finalImages[0],
+                        image: finalImages?.[0] || "",
                         category: product.category?.name || "Sneakers",
                         size: selectedSize,
                       })
                     )
                   }
                   disabled={!selectedSize}
-                  className="h-14 flex-1 rounded-xl bg-zinc-900 text-base uppercase tracking-widest text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="h-14 flex-1 rounded-xl bg-zinc-900 text-base uppercase tracking-widest text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   Add To Cart
                 </Button>
-                <Button variant="outline" className="h-14 w-14 rounded-xl border-zinc-900 bg-zinc-900 text-white hover:bg-zinc-800">
+                <Button variant="outline" className="h-14 w-14 rounded-xl border-zinc-900 bg-zinc-900 text-white hover:bg-zinc-800 hover:text-white cursor-pointer">
                   <Heart className="h-5 w-5" />
                 </Button>
               </div>
-              <Button className="h-14 w-full rounded-xl bg-primary text-base uppercase tracking-widest text-white hover:bg-primary/90">
+              <Button className="h-14 w-full rounded-xl bg-primary text-base uppercase tracking-widest text-white hover:bg-primary/90 cursor-pointer">
                 Buy It Now
               </Button>
             </div>

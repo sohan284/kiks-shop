@@ -7,6 +7,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { useGetProductsQuery } from "@/services/productsApi";
 import { ProductCard, ProductSkeleton } from "@/components/common/ProductCard";
 import { Button } from "@/components/ui/button";
+import { SliderNavigation } from "../common/SliderNavigation";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -20,6 +21,8 @@ interface RelatedProductsProps {
 export function RelatedProducts({ currentProductId, showTitle = "You may also like" }: RelatedProductsProps) {
   const { data: products, isLoading } = useGetProductsQuery();
   const swiperRef = useRef<any>(null);
+  const [isBeginning, setIsBeginning] = React.useState(true);
+  const [isEnd, setIsEnd] = React.useState(false);
 
   if (isLoading || !products) {
     return (
@@ -46,30 +49,26 @@ export function RelatedProducts({ currentProductId, showTitle = "You may also li
         </h2>
 
         {/* Navigation buttons */}
-        <div className="flex gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => swiperRef.current?.slidePrev()}
-            className="h-10 w-10 rounded-lg bg-zinc-400 text-white hover:bg-zinc-500 hover:text-white cursor-pointer"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => swiperRef.current?.slideNext()}
-            className="h-10 w-10 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 hover:text-white cursor-pointer"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
-        </div>
+        <SliderNavigation
+          onPrev={() => swiperRef.current?.slidePrev()}
+          onNext={() => swiperRef.current?.slideNext()}
+          isBeginning={isBeginning}
+          isEnd={isEnd}
+        />
       </div>
 
       {/* Slider */}
       <div className="relative">
         <Swiper
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
+          onSlideChange={(swiper) => {
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
           modules={[Navigation, Pagination]}
           spaceBetween={16}
           slidesPerView={1}

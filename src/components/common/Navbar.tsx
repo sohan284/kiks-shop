@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/accordion";
 
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
@@ -48,7 +49,12 @@ export default function Navbar() {
   const totalQuantity = useSelector(selectTotalQuantity);
 
   return (
-    <div className="mt-6 px-4 sm:px-6 lg:px-8">
+    <motion.div
+      className="mt-6 px-4 sm:px-6 lg:px-8"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <nav className="flex h-16 items-center rounded-3xl bg-white px-6 shadow-sm">
 
         {/* ── LEFT ── */}
@@ -179,7 +185,7 @@ export default function Navbar() {
           <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-primary">
             <User className="h-5 w-5" />
           </Button>
-          <Link 
+          <Link
             href="/cart"
             className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400 text-xs font-bold text-black transition-colors hover:bg-orange-500 md:text-sm"
           >
@@ -187,6 +193,6 @@ export default function Navbar() {
           </Link>
         </div>
       </nav>
-    </div>
+    </motion.div>
   );
 }

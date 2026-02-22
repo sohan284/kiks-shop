@@ -6,13 +6,14 @@ import Link from "next/link";
 import { Trash2, Heart, ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSelector, useDispatch } from "react-redux";
-import { 
-  selectCartItems, 
-  selectTotalPrice, 
+import { motion } from "framer-motion";
+import {
+  selectCartItems,
+  selectTotalPrice,
   selectTotalQuantity,
   addToCart,
   removeFromCart,
-  deleteFromCart 
+  deleteFromCart
 } from "@/features/cart/cartSlice";
 import { getDirectImageUrl } from "@/lib/utils";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
@@ -27,23 +28,33 @@ export default function CartContent() {
   const grandTotal = totalPrice + deliveryFee;
 
   return (
-    <main className="min-h-screen  px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       {/* Promo Header */}
-      <div className="mb-8 flex flex-col gap-2">
-        <h2 className="text-xl font-black uppercase italic tracking-tight text-zinc-900">Saving to celebrate</h2>
+      <motion.div
+        className="mb-8 flex flex-col gap-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h2 className="text-xl font-black tracking-tight text-zinc-900">Saving to celebrate</h2>
         <p className="text-sm text-zinc-500">
           Enjoy up to 60% off thousands of styles during the End of Year sale - while supplies last. No code needed.
         </p>
-        <div className="flex gap-1 text-sm font-bold underline underline-offset-4">
-          <Link href="#">Join us</Link>
+        <div className="flex gap-1 text-sm underline underline-offset-4">
+          Join us
           <span className="no-underline text-zinc-400">or</span>
-          <Link href="#">Sign-in</Link>
+          Sign-in
         </div>
-      </div>
+      </motion.div>
 
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
         {/* Left: Your Bag */}
-        <div className="lg:col-span-8">
+        <motion.div
+          className="lg:col-span-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           <div className="rounded-[2rem] bg-white p-6 md:p-10 shadow-sm">
             <h1 className="mb-2 text-2xl font-black uppercase tracking-tight text-zinc-900">Your Bag</h1>
             <p className="mb-8 text-sm text-zinc-500">
@@ -54,9 +65,9 @@ export default function CartContent() {
               <div className="py-12 text-center">
                 <p className="text-lg font-medium text-zinc-500 mb-6">Your bag is empty.</p>
                 <Link href="/">
-                   <Button className="bg-zinc-900 text-white rounded-xl px-8 h-12 uppercase tracking-widest">
-                     Go Shopping
-                   </Button>
+                  <Button className="bg-zinc-900 text-white rounded-xl px-8 h-12 uppercase tracking-widest">
+                    Go Shopping
+                  </Button>
                 </Link>
               </div>
             ) : (
@@ -88,25 +99,25 @@ export default function CartContent() {
 
                       {/* Size/Quantity Selectors */}
                       <div className="mt-4 flex gap-6">
-                        <button className="flex items-center gap-2 text-sm font-bold text-zinc-900">
+                        <button className="flex items-center gap-2 text-sm font-medium text-zinc-600">
                           Size 10 <ChevronDown className="h-4 w-4" />
                         </button>
                         <div className="flex items-center gap-3">
-                           <span className="text-sm font-bold text-zinc-900">Quantity {item.quantity}</span>
-                           <div className="flex gap-1">
-                              <button 
-                                onClick={() => dispatch(removeFromCart(item.id))}
-                                className="flex h-6 w-6 items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50"
-                              >
-                                <ChevronLeft className="h-3 w-3" />
-                              </button>
-                              <button 
-                                onClick={() => dispatch(addToCart(item))}
-                                className="flex h-6 w-6 items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50"
-                              >
-                                <ChevronRight className="h-3 w-3" />
-                              </button>
-                           </div>
+                          <span className="text-sm font-medium text-zinc-600">Quantity {item.quantity}</span>
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => dispatch(removeFromCart(item.id))}
+                              className="flex h-6 w-6 items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50"
+                            >
+                              <ChevronLeft className="h-3 w-3" />
+                            </button>
+                            <button
+                              onClick={() => dispatch(addToCart(item))}
+                              className="flex h-6 w-6 items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50"
+                            >
+                              <ChevronRight className="h-3 w-3" />
+                            </button>
+                          </div>
                         </div>
                       </div>
 
@@ -115,7 +126,7 @@ export default function CartContent() {
                         <button className="text-zinc-400 hover:text-zinc-900 transition-colors">
                           <Heart className="h-5 w-5" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => dispatch(deleteFromCart(item.id))}
                           className="text-zinc-400 hover:text-red-500 transition-colors"
                         >
@@ -128,13 +139,18 @@ export default function CartContent() {
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Right: Order Summary */}
-        <div className="lg:col-span-4 lg:pl-4">
+        <motion.div
+          className="lg:col-span-4 lg:pl-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <div className="flex flex-col gap-6 sticky top-24">
             <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">Order Summary</h2>
-            
+
             <div className="flex flex-col gap-4 text-sm font-medium text-zinc-700">
               <div className="flex justify-between">
                 <span>{totalQuantity} ITEM{totalQuantity !== 1 ? 'S' : ''}</span>
@@ -162,13 +178,18 @@ export default function CartContent() {
               Use a promo code
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* You may also like Section */}
-      <div className="mt-20">
+      <motion.div
+        className="mt-20"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
         <RelatedProducts showTitle="You may also like" currentProductId={0} />
-      </div>
+      </motion.div>
     </main>
   );
 }

@@ -41,8 +41,8 @@ export function CategorySection() {
             <div className="h-10 w-10 bg-zinc-700 rounded-lg animate-pulse" />
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {[...Array(3)].map((_, i) => (
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {[...Array(2)].map((_, i) => (
             <CategorySkeleton key={i} />
           ))}
         </div>
@@ -53,8 +53,8 @@ export function CategorySection() {
   if (isError || !categories) {
     return (
       <section className="bg-zinc-900 px-4 py-16 sm:px-6 lg:px-8">
-        <StatusView 
-          type="error" 
+        <StatusView
+          type="error"
           onRetry={refetch}
           className="bg-zinc-800/50 border-zinc-700"
           message="Failed to load categories. Please check your connection and try again."
@@ -70,10 +70,10 @@ export function CategorySection() {
         <h2 className="text-xl-fluid font-black uppercase tracking-tighter text-white">
           Categories
         </h2>
-        
+
         {/* Navigation Controls */}
         <div className="flex gap-2">
-          <button 
+          <button
             onClick={() => swiperRef.current?.slidePrev()}
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-lg transition-all md:h-10 md:w-10",
@@ -83,7 +83,7 @@ export function CategorySection() {
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <button 
+          <button
             onClick={() => swiperRef.current?.slideNext()}
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-lg transition-all md:h-10 md:w-10",
@@ -98,7 +98,7 @@ export function CategorySection() {
 
       {/* Content Container with Rounded Top-Left */}
       <div className="rounded-tl-[3rem] bg-white w-[90%] ml-auto md:rounded-tl-[5rem] overflow-hidden">
-        <div className={cn(direction === "vertical" ? "h-[500px]" : "h-auto")}>
+        <div className={cn(direction === "vertical" ? "h-[700px] py-4" : "h-auto")}>
           <Swiper
             key={direction} // Re-init swiper when direction changes
             modules={[Navigation]}
@@ -108,7 +108,7 @@ export function CategorySection() {
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             direction={direction}
             spaceBetween={24}
-            slidesPerView={direction === "vertical" ? 1.5 : 1.2}
+            slidesPerView={direction === "vertical" ? 2 : 1.2}
             breakpoints={{
               768: { slidesPerView: 2 },
               1280: { slidesPerView: 2 },
@@ -117,9 +117,9 @@ export function CategorySection() {
           >
             {categories.map((category, index) => (
               <SwiperSlide key={category.id}>
-                <CategoryCard 
-                  title={category.name} 
-                  image={category.image} 
+                <CategoryCard
+                  title={category.name}
+                  image={category.image}
                   index={index}
                   isActive={index === activeIndex}
                 />

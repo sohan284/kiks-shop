@@ -14,7 +14,7 @@ interface ReviewCardProps {
   title: string;
   review: string;
   rating: number;
-  userAvatar: string;
+  userAvatar: string | StaticImageData;
   className?: string;
   index: number;
 }
@@ -30,10 +30,12 @@ export function ReviewCard({
   // index % 3 — 3 এর বেশি card হলেও loop করবে
   const shoeImage = SHOE_IMAGES[index % SHOE_IMAGES.length];
 
+  const isAvatarStatic = typeof userAvatar !== "string";
+
   return (
     <div className={cn("flex flex-col h-[340px] lg:h-[503px]", className)}>
       {/* Testimonial Area — 35% height */}
-      <div className="relative rounded-t-[2rem] bg-white p-6 md:p-8 h-[35%] flex flex-col justify-center">
+      <div className="relative rounded-t-[1rem] lg:rounded-t-[2rem] bg-white p-6 md:p-8 h-[35%] flex flex-col justify-center">
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-2">
             <h3 className="text-xl font-bold text-zinc-900">{title}</h3>
@@ -45,7 +47,7 @@ export function ReviewCard({
           {/* Avatar */}
           <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-primary/10">
             <Image
-              src={getDirectImageUrl(userAvatar)}
+              src={isAvatarStatic ? userAvatar : getDirectImageUrl(userAvatar as string)}
               alt="User"
               fill
               className="object-cover"
@@ -73,7 +75,7 @@ export function ReviewCard({
       </div>
 
       {/* Product Lifestyle Image — 65% height */}
-      <div className="relative w-full overflow-hidden rounded-b-[2rem] h-[65%]">
+      <div className="relative w-full overflow-hidden rounded-b-[1rem] lg:rounded-b-[2rem] h-[65%]">
         <Image
           src={shoeImage}
           alt={`Review image ${index + 1}`}

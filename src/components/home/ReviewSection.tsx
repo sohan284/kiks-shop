@@ -11,6 +11,10 @@ import "swiper/css/pagination";
 import review1 from "@/assets/review1.png";
 import review2 from "@/assets/review2.png";
 import review3 from "@/assets/review3.png";
+import reviewer1 from "@/assets/reviewer-1.png";
+import reviewer2 from "@/assets/reviewer-2.png";
+import reviewer3 from "@/assets/reviewer-3.png";
+import { motion } from "framer-motion";
 
 const REVIEWS = [
   {
@@ -18,7 +22,7 @@ const REVIEWS = [
     title: "Good Quality",
     review: "I highly recommend shopping from kicks. The product quality is top-notch and delivery was super fast.",
     rating: 5.0,
-    userAvatar: "https://pravatar.cc/150?u=1",
+    userAvatar: reviewer1,
     shoeImage: review1,
   },
   {
@@ -26,7 +30,7 @@ const REVIEWS = [
     title: "Good Quality",
     review: "The shoes are incredibly comfortable and stylish. Exactly what I was looking for. Will definitely buy more!",
     rating: 5.0,
-    userAvatar: "https://pravatar.cc/150?u=2",
+    userAvatar: reviewer2,
     shoeImage: review2,
   },
   {
@@ -34,7 +38,7 @@ const REVIEWS = [
     title: "Good Quality",
     review: "Best shopping experience ever. The attention to detail in the packaging and product is amazing.",
     rating: 5.0,
-    userAvatar: "https://pravatar.cc/150?u=3",
+    userAvatar: reviewer3,
     shoeImage: review3,
   },
 ];
@@ -43,14 +47,20 @@ export function ReviewSection() {
   return (
     <section className="bg-[#ECEEF0] px-4 py-16 sm:px-6 lg:px-8 overflow-hidden">
       {/* Header */}
-      <div className="mb-12 flex items-center justify-between">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="mb-12 flex items-center justify-between"
+      >
         <h2 className="text-xl-fluid font-black uppercase leading-[0.9] tracking-tighter text-zinc-900">
           Reviews
         </h2>
         <CustomButton className="bg-[#4A69E2] border-[#4A69E2] hover:bg-[#3d58be]">
           See All
         </CustomButton>
-      </div>
+      </motion.div>
 
       {/* Slider */}
       <div className="w-full">

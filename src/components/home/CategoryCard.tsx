@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { cn, getDirectImageUrl } from "@/lib/utils";
@@ -19,34 +18,28 @@ interface CategoryCardProps {
 }
 
 export function CategoryCard({ title, image, index, isActive }: CategoryCardProps) {
-  const [imgError, setImgError] = useState(false);
-  
-  // Choose fallback based on index
-  const fallbackImage = FALLBACK_IMAGES[index % 4];
-  
-  // Logic to determine if fallback should be shown
-  const showFallback = !image || imgError || image.includes("placehold.co") || image.includes("placeimg.com");
-
   return (
-    <div 
+    <div
       className={cn(
-        "group relative aspect-[4/5] w-full rounded-tl-[1.5rem] overflow-hidden transition-all duration-500 sm:aspect-square md:aspect-[4/5]",
-        isActive 
-          ? "bg-[#ECEEF0] ring-4 ring-primary/10" 
+        "group relative aspect-[4/3] w-full rounded-tl-[1.5rem] overflow-hidden transition-all duration-500 sm:aspect-square md:aspect-[4/5]",
+        isActive
+          ? "bg-[#ECEEF0] ring-4 ring-primary/10"
           : "bg-white opacity-80 grayscale-[0.5] hover:opacity-100 hover:grayscale-0"
       )}
     >
       {/* Category Image */}
-      <div className={cn(
-        "relative h-full w-full transition-transform duration-700",
-        isActive ? "scale-105" : "group-hover:scale-105"
-      )}>
+      <div
+        className={cn(
+          "relative h-[80%] lg:h-[90%] w-full",
+          isActive ? "scale-105" : ""
+        )}
+      >
         <Image
-          src={showFallback ? fallbackImage : getDirectImageUrl(image)}
+          src={getDirectImageUrl(image)}
           alt={title}
           fill
-          className="object-contain p-8 md:p-12"
-          onError={() => setImgError(true)}
+          className="object-contain"
+
         />
       </div>
 
@@ -59,7 +52,7 @@ export function CategoryCard({ title, image, index, isActive }: CategoryCardProp
             </span>
           ))}
         </h3>
-        
+
         {/* Action Button */}
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-900 text-white transition-all md:h-12 md:w-12">
           <ArrowUpRight className="h-5 w-5 md:h-6 md:w-6" />
@@ -71,7 +64,7 @@ export function CategoryCard({ title, image, index, isActive }: CategoryCardProp
 
 export function CategorySkeleton() {
   return (
-    <div className="group relative aspect-[4/5] w-full rounded-tl-[1.5rem] overflow-hidden bg-[#ECEEF0] animate-pulse sm:aspect-square md:aspect-[4/5]">
+    <div className="group relative aspect-[4/3] w-full rounded-tl-[1.5rem] overflow-hidden bg-[#ECEEF0] animate-pulse sm:aspect-square md:aspect-[4/5]">
       {/* Category Image Placeholder */}
       <div className="relative h-full w-full flex items-center justify-center">
         <div className="h-32 w-32 rounded-full bg-zinc-300" />
@@ -83,7 +76,7 @@ export function CategorySkeleton() {
           <div className="h-8 w-32 bg-zinc-300 rounded-md" />
           <div className="h-8 w-24 bg-zinc-300 rounded-md" />
         </div>
-        
+
         {/* Action Button Placeholder */}
         <div className="h-10 w-10 rounded-lg bg-zinc-300 md:h-12 md:w-12" />
       </div>

@@ -26,6 +26,7 @@ interface ProductDetailsContentProps {
 
 export default function ProductDetailsContent({ productId }: ProductDetailsContentProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const [selectedSize, setSelectedSize] = React.useState<string | null>("38");
   const dispatch = useDispatch();
 
   const { data: product, isLoading, isError, refetch } = useGetProductByIdQuery(productId);
@@ -195,14 +196,24 @@ export default function ProductDetailsContent({ productId }: ProductDetailsConte
                 <button className="text-[10px] font-bold uppercase tracking-widest text-zinc-900 underline underline-offset-4">Size Chart</button>
               </div>
               <div className="grid grid-cols-5 gap-2">
-                {productMeta.sizes.map((size, i) => (
-                  <button
-                    key={size}
-                    className={`flex h-12 items-center justify-center rounded-lg border text-sm font-bold transition-all hover:bg-zinc-100 ${i === 0 ? "bg-zinc-900 text-white border-zinc-900" : "bg-white text-zinc-900 border-zinc-200"} ${["39", "40"].includes(size) ? "opacity-30 pointer-events-none bg-zinc-50" : ""}`}
-                  >
-                    {size}
-                  </button>
-                ))}
+                {productMeta.sizes.map((size) => {
+                  const isSelected = selectedSize === size;
+                  const isOutOfStock = ["39", "40"].includes(size);
+
+                  return (
+                    <button
+                      key={size}
+                      onClick={() => !isOutOfStock && setSelectedSize(size)}
+                      className={`flex h-12 items-center justify-center rounded-lg border text-sm font-bold transition-all ${isSelected
+                          ? "bg-zinc-900 text-white border-zinc-900"
+                          : "bg-white text-zinc-900 border-zinc-200 hover:bg-zinc-100"
+                        } ${isOutOfStock ? "opacity-30 cursor-not-allowed bg-zinc-50" : "cursor-pointer"}`}
+                      disabled={isOutOfStock}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -210,14 +221,20 @@ export default function ProductDetailsContent({ productId }: ProductDetailsConte
             <div className="flex flex-col gap-2 pt-2">
               <div className="flex gap-2">
                 <Button
-                  onClick={() => dispatch(addToCart({
-                    id: product.id,
-                    name: product.title,
-                    price: product.price,
-                    image: finalImages[0],
-                    category: product.category?.name || "Sneakers"
-                  }))}
-                  className="h-14 flex-1 rounded-xl bg-zinc-900 text-base uppercase tracking-widest text-white hover:bg-zinc-800"
+                  onClick={() =>
+                    dispatch(
+                      addToCart({
+                        id: product.id,
+                        name: product.title,
+                        price: product.price,
+                        image: finalImages[0],
+                        category: product.category?.name || "Sneakers",
+                        size: selectedSize,
+                      })
+                    )
+                  }
+                  disabled={!selectedSize}
+                  className="h-14 flex-1 rounded-xl bg-zinc-900 text-base uppercase tracking-widest text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Add To Cart
                 </Button>

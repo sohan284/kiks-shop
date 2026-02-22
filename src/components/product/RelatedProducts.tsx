@@ -44,14 +44,14 @@ export function RelatedProducts({ currentProductId, showTitle = "You may also li
         <h2 className="text-[1.5rem] lg:text-[3rem] font-black tracking-tighter text-zinc-900">
           {showTitle}
         </h2>
-        
+
         {/* Navigation buttons */}
         <div className="flex gap-2">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => swiperRef.current?.slidePrev()}
-            className="h-10 w-10 rounded-lg bg-zinc-400 text-white hover:bg-zinc-500"
+            className="h-10 w-10 rounded-lg bg-zinc-400 text-white hover:bg-zinc-500 hover:text-white cursor-pointer"
           >
             <ChevronLeft className="h-6 w-6" />
           </Button>
@@ -59,7 +59,7 @@ export function RelatedProducts({ currentProductId, showTitle = "You may also li
             variant="ghost"
             size="icon"
             onClick={() => swiperRef.current?.slideNext()}
-            className="h-10 w-10 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800"
+            className="h-10 w-10 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 hover:text-white cursor-pointer"
           >
             <ChevronRight className="h-6 w-6" />
           </Button>
@@ -73,7 +73,7 @@ export function RelatedProducts({ currentProductId, showTitle = "You may also li
           modules={[Navigation, Pagination]}
           spaceBetween={16}
           slidesPerView={1}
-          pagination={{ 
+          pagination={{
             type: "progressbar",
             el: ".slider-progress-bar"
           }}

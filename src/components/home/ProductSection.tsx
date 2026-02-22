@@ -78,6 +78,7 @@ export function ProductSection() {
       <section className="px-4 py-16 sm:px-6 lg:px-8">
         <StatusView
           type="empty"
+          title="New Drops Coming Soon"
           message="The new collection is on its way. Stay tuned for the latest drops!"
         />
       </section>

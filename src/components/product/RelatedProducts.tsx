@@ -8,6 +8,7 @@ import { useGetProductsQuery } from "@/services/productsApi";
 import { ProductCard, ProductSkeleton } from "@/components/common/ProductCard";
 import { Button } from "@/components/ui/button";
 import { SliderNavigation } from "../common/SliderNavigation";
+import { StatusView } from "../common/StatusView";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -19,12 +20,12 @@ interface RelatedProductsProps {
 }
 
 export function RelatedProducts({ currentProductId, showTitle = "You may also like" }: RelatedProductsProps) {
-  const { data: products, isLoading } = useGetProductsQuery();
+  const { data: products, isLoading, isError, refetch } = useGetProductsQuery();
   const swiperRef = useRef<any>(null);
   const [isBeginning, setIsBeginning] = React.useState(true);
   const [isEnd, setIsEnd] = React.useState(false);
 
-  if (isLoading || !products) {
+  if (isLoading) {
     return (
       <section className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="h-10 w-48 bg-zinc-300 rounded-lg animate-pulse mb-12" />
@@ -37,8 +38,32 @@ export function RelatedProducts({ currentProductId, showTitle = "You may also li
     );
   }
 
+  if (isError || !products) {
+    return (
+      <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <StatusView
+          type="error"
+          onRetry={refetch}
+          message="Failed to load related products. Please try again."
+        />
+      </section>
+    );
+  }
+
   // Filter out the current product
   const relatedProducts = products.filter((p) => p.id !== currentProductId);
+
+  if (relatedProducts.length === 0) {
+    return (
+      <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <StatusView
+          type="empty"
+          title="No Related Products"
+          message="We couldn't find any similar sneakers at the moment."
+        />
+      </section>
+    );
+  }
 
   return (
     <section className="px-4 py-16 sm:px-6 lg:px-8 overflow-hidden">

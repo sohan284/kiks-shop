@@ -66,6 +66,19 @@ export function CategorySection() {
     );
   }
 
+  if (categories.length === 0) {
+    return (
+      <section className="bg-zinc-900 px-4 py-16 sm:px-6 lg:px-8">
+        <StatusView
+          type="empty"
+          title="No Categories"
+          message="We couldn't find any sneaker categories at the moment."
+          className="bg-zinc-800/50 border-zinc-700"
+        />
+      </section>
+    );
+  }
+
   return (
     <section className="bg-zinc-900">
       {/* Section Header */}

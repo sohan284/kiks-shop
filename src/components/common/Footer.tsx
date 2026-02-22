@@ -36,7 +36,7 @@ export function Footer() {
                 />
                 <button
                   type="submit"
-                  className="h-12 rounded-lg bg-[#232321] px-8 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-zinc-800"
+                  className="h-12 cursor-pointer rounded-lg bg-[#232321] px-8 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-zinc-800"
                 >
                   Submit
                 </button>

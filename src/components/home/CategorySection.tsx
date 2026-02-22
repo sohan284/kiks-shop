@@ -5,6 +5,7 @@ import { CategoryCard, CategorySkeleton } from "./CategoryCard";
 import { useGetCategoriesQuery } from "@/services/categoriesApi";
 import { cn } from "@/lib/utils";
 import { StatusView } from "../common/StatusView";
+import { SliderNavigation } from "../common/SliderNavigation";
 
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,6 +20,8 @@ export function CategorySection() {
   const { data: categories, isLoading, isError, refetch } = useGetCategoriesQuery();
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
   const [direction, setDirection] = useState<"horizontal" | "vertical">("horizontal");
 
   // Detect direction based on viewport width
@@ -71,29 +74,20 @@ export function CategorySection() {
           Categories
         </h2>
 
-        {/* Navigation Controls */}
-        <div className="flex gap-2">
-          <button
-            onClick={() => swiperRef.current?.slidePrev()}
-            className={cn(
-              "flex h-8 w-8 items-center justify-center rounded-lg transition-all md:h-10 md:w-10",
-              activeIndex > 0 ? "bg-white text-zinc-900" : "bg-zinc-700 text-white/30 cursor-not-allowed"
-            )}
-            disabled={activeIndex === 0}
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={() => swiperRef.current?.slideNext()}
-            className={cn(
-              "flex h-8 w-8 items-center justify-center rounded-lg transition-all md:h-10 md:w-10",
-              activeIndex < categories.length - 1 ? "bg-white text-zinc-900" : "bg-zinc-700 text-white/30 cursor-not-allowed"
-            )}
-            disabled={activeIndex >= categories.length - 1}
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
+        <SliderNavigation
+          onPrev={() => swiperRef.current?.slidePrev()}
+          onNext={() => swiperRef.current?.slideNext()}
+          isBeginning={isBeginning}
+          isEnd={isEnd}
+          prevColors={{
+            active: "bg-white text-zinc-900 hover:bg-zinc-100",
+            inactive: "bg-zinc-400"
+          }}
+          nextColors={{
+            active: "bg-white text-zinc-900 hover:bg-zinc-100",
+            inactive: "bg-zinc-400"
+          }}
+        />
       </div>
 
       {/* Content Container with Rounded Top-Left */}
@@ -104,8 +98,14 @@ export function CategorySection() {
             modules={[Navigation]}
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
+              setIsBeginning(swiper.isBeginning);
+              setIsEnd(swiper.isEnd);
             }}
-            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+            onSlideChange={(swiper) => {
+              setActiveIndex(swiper.activeIndex);
+              setIsBeginning(swiper.isBeginning);
+              setIsEnd(swiper.isEnd);
+            }}
             direction={direction}
             spaceBetween={24}
             slidesPerView={direction === "vertical" ? 2 : 1.2}

@@ -2,13 +2,6 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { cn, getDirectImageUrl } from "@/lib/utils";
-import { useState } from "react";
-import shoe1 from "@/assets/shoe1.png";
-import shoe2 from "@/assets/shoe2.png";
-import shoe3 from "@/assets/shoe3.png";
-import shoe4 from "@/assets/shoe4.png";
-
-const FALLBACK_IMAGES = [shoe1, shoe2, shoe3, shoe4];
 
 interface CategoryCardProps {
   title: string;

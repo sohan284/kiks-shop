@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, User, ShoppingCart, ChevronDown, Menu } from "lucide-react";
+import { Search, User, ChevronDown, Menu } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { useSelector } from "react-redux";
 import { selectTotalQuantity } from "@/features/cart/cartSlice";
@@ -66,7 +66,7 @@ export default function Navbar() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
+                className="md:hidden cursor-pointer"
                 aria-label="Open menu"
               >
                 <Menu className="h-6 w-6" />
@@ -179,15 +179,15 @@ export default function Navbar() {
 
         {/* ── RIGHT – icons ── */}
         <div className="flex flex-1 items-center justify-end gap-4">
-          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-primary">
+          <Button variant="ghost" size="icon" className="cursor-pointer text-zinc-900 hover:text-primary">
             <Search className="h-5 w-5 hidden lg:block" />
           </Button>
-          <Button variant="ghost" size="icon" className="text-zinc-900 hover:text-primary">
+          <Button variant="ghost" size="icon" className="cursor-pointer text-zinc-900 hover:text-primary">
             <User className="h-5 w-5" />
           </Button>
           <Link
             href="/cart"
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400 text-xs font-bold text-black transition-colors hover:bg-orange-500 md:text-sm"
+            className="cursor-pointer flex h-8 w-8 items-center justify-center rounded-full bg-orange-400 text-xs font-bold text-black transition-colors hover:bg-orange-500 md:text-sm"
           >
             {totalQuantity}
           </Link>
